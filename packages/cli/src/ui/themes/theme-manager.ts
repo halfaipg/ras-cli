@@ -15,8 +15,8 @@ import { DefaultLight } from './default-light.js';
 import { DefaultDark } from './default.js';
 import { ShadesOfPurple } from './shades-of-purple.js';
 import { XCode } from './xcode.js';
-import { QwenLight } from './qwen-light.js';
-import { QwenDark } from './qwen-dark.js';
+import { RasLight } from './qwen-light.js';
+import { RasDark } from './qwen-dark.js';
 import {
   Theme,
   ThemeType,
@@ -35,7 +35,7 @@ export interface ThemeDisplay {
   isCustom?: boolean;
 }
 
-export const DEFAULT_THEME: Theme = QwenDark;
+export const DEFAULT_THEME: Theme = RasDark;
 
 class ThemeManager {
   private readonly availableThemes: Theme[];
@@ -53,8 +53,8 @@ class ThemeManager {
       GitHubDark,
       GitHubLight,
       GoogleCode,
-      QwenLight,
-      QwenDark,
+        RasLight,
+  RasDark,
       ShadesOfPurple,
       XCode,
       ANSI,
@@ -175,10 +175,10 @@ class ThemeManager {
 
     // Separate Qwen themes
     const qwenThemes = builtInThemes.filter(
-      (theme) => theme.name === QwenLight.name || theme.name === QwenDark.name,
+      (theme) => theme.name === RasLight.name || theme.name === RasDark.name,
     );
     const otherBuiltInThemes = builtInThemes.filter(
-      (theme) => theme.name !== QwenLight.name && theme.name !== QwenDark.name,
+      (theme) => theme.name !== RasLight.name && theme.name !== RasDark.name,
     );
 
     // Sort other themes by type and then name

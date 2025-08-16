@@ -1,13 +1,14 @@
 {
-  "name": "@qwen-code/qwen-code-core",
+  "name": "@ras-ai/ras-cli-core",
   "version": "0.0.7",
-  "description": "Qwen Code Core",
+  "description": "RAS CLI Core - Core functionality for RAS CLI",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/QwenLM/qwen-code.git"
   },
   "type": "module",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "node ../../scripts/build_package.js",
     "lint": "eslint . --ext .ts,.tsx",

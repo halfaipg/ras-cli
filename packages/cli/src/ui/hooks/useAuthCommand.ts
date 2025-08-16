@@ -19,9 +19,7 @@ export const useAuthCommand = (
   setAuthError: (error: string | null) => void,
   config: Config,
 ) => {
-  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(
-    settings.merged.selectedAuthType === undefined,
-  );
+  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
 
   const openAuthDialog = useCallback(() => {
     setIsAuthDialogOpen(true);
@@ -31,8 +29,16 @@ export const useAuthCommand = (
 
   useEffect(() => {
     const authFlow = async () => {
-      const authType = settings.merged.selectedAuthType;
-      if (isAuthDialogOpen || !authType) {
+      let authType = settings.merged.selectedAuthType;
+      
+      // Always default to OpenAI if no auth type is set
+      if (!authType) {
+        authType = AuthType.USE_OPENAI;
+        settings.setValue(SettingScope.User, 'selectedAuthType', authType);
+        console.log('Connecting to Cray V100 powered RAS super computers...');
+      }
+
+      if (isAuthDialogOpen) {
         return;
       }
 

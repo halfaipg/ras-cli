@@ -77,7 +77,7 @@ export async function parseArguments(): Promise<CliArgs> {
     .scriptName('qwen')
     .usage(
       '$0 [options]',
-      'Qwen Code - Launch an interactive CLI, use -p/--prompt for non-interactive mode',
+      'RAS CLI - NOC Edition - Launch an interactive CLI, use -p/--prompt for non-interactive mode',
     )
     .option('model', {
       alias: 'm',
@@ -237,7 +237,7 @@ export async function parseArguments(): Promise<CliArgs> {
     .option('load-memory-from-include-directories', {
       type: 'boolean',
       description:
-        'If true, when refreshing memory, QWEN.md files should be loaded from all directories that are added. If false, QWEN.md files should only be loaded from the primary working directory.',
+        'If true, when refreshing memory, RAS.md files should be loaded from all directories that are added. If false, RAS.md files should only be loaded from the primary working directory.',
       default: false,
     })
     .version(await getCliVersion()) // This will enable the --version flag based on package.json

@@ -1,9 +1,9 @@
 {
-  "name": "qwen-code-vscode-ide-companion",
-  "displayName": "Qwen Code Companion",
-  "description": "Enable Qwen Code with direct access to your VS Code workspace.",
+  "name": "ras-cli-vscode-ide-companion",
+  "displayName": "RAS CLI Companion",
+  "description": "Enable RAS CLI with direct access to your VS Code workspace.",
   "version": "0.0.7",
-  "publisher": "qwenlm",
+  "publisher": "ras-ai",
   "icon": "assets/icon.png",
   "repository": {
     "type": "git",
@@ -19,10 +19,11 @@
     "AI"
   ],
   "keywords": [
-    "qwen-code",
-    "qwen code",
-    "qwen",
-    "qwen code",
+    "ras-cli",
+    "ras cli",
+    "ras",
+    "rent-a-server",
+    "ai cli",
     "cli",
     "ide integration",
     "ide companion"
@@ -33,63 +34,63 @@
   "contributes": {
     "languages": [
       {
-        "id": "qwen-diff-editable"
+        "id": "ras-diff-editable"
       }
     ],
     "commands": [
       {
-        "command": "qwen.diff.accept",
-        "title": "Qwen Code: Accept Current Diff",
+        "command": "ras.diff.accept",
+        "title": "RAS CLI: Accept Current Diff",
         "icon": "$(check)"
       },
       {
-        "command": "qwen.diff.cancel",
+        "command": "ras.diff.cancel",
         "title": "Cancel",
         "icon": "$(close)"
       },
       {
-        "command": "qwen-code.runGeminiCLI",
-        "title": "Qwen Code: Run"
+        "command": "ras-cli.runGeminiCLI",
+        "title": "RAS CLI: Run"
       },
       {
-        "command": "qwen-code.showNotices",
-        "title": "Qwen Code: View Third-Party Notices"
+        "command": "ras-cli.showNotices",
+        "title": "RAS CLI: View Third-Party Notices"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "qwen.diff.accept",
-          "when": "qwen.diff.isVisible"
+          "command": "ras.diff.accept",
+          "when": "ras.diff.isVisible"
         },
         {
-          "command": "qwen.diff.cancel",
-          "when": "qwen.diff.isVisible"
+          "command": "ras.diff.cancel",
+          "when": "ras.diff.isVisible"
         }
       ],
       "editor/title": [
         {
-          "command": "qwen.diff.accept",
-          "when": "qwen.diff.isVisible",
+          "command": "ras.diff.accept",
+          "when": "ras.diff.isVisible",
           "group": "navigation"
         },
         {
-          "command": "qwen.diff.cancel",
-          "when": "qwen.diff.isVisible",
+          "command": "ras.diff.cancel",
+          "when": "ras.diff.isVisible",
           "group": "navigation"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "qwen.diff.accept",
+        "command": "ras.diff.accept",
         "key": "ctrl+s",
-        "when": "qwen.diff.isVisible"
+        "when": "ras.diff.isVisible"
       },
       {
-        "command": "qwen.diff.accept",
+        "command": "ras.diff.accept",
         "key": "cmd+s",
-        "when": "qwen.diff.isVisible"
+        "when": "ras.diff.isVisible"
       }
     ]
   },

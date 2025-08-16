@@ -1,7 +1,7 @@
 {
-  "name": "@qwen-code/qwen-code",
+  "name": "@ras-ai/ras-cli",
   "version": "0.0.7",
-  "description": "Qwen Code",
+  "description": "RAS CLI - Rent-a-Server AI CLI Tool - Specialized for Network Operations Center (NOC) Professionals",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/QwenLM/qwen-code.git"
@@ -9,7 +9,7 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "qwen": "dist/index.js"
+    "ras": "dist/index.js"
   },
   "scripts": {
     "build": "node ../../scripts/build_package.js",
@@ -25,12 +25,26 @@
     "dist"
   ],
   "config": {
-    "sandboxImageUri": "ghcr.io/qwenlm/qwen-code:0.0.7"
+    "sandboxImageUri": "ghcr.io/ras-ai/ras-cli:0.0.7"
   },
+  "keywords": [
+    "ras-cli",
+    "noc",
+    "network-operations-center",
+    "infrastructure",
+    "linux",
+    "cisco",
+    "vmware",
+    "hyper-v",
+    "storage",
+    "incident-response",
+    "ai-cli",
+    "automation"
+  ],
   "dependencies": {
     "@google/genai": "1.9.0",
     "@iarna/toml": "^2.2.5",
-    "@qwen-code/qwen-code-core": "file:../core",
+    "@ras-ai/ras-cli-core": "file:../core",
     "@types/update-notifier": "^6.0.8",
     "command-exists": "^1.2.9",
     "diff": "^7.0.0",

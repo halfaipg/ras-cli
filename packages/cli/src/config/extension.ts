@@ -9,7 +9,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 
-export const EXTENSIONS_DIRECTORY_NAME = path.join('.qwen', 'extensions');
+export const EXTENSIONS_DIRECTORY_NAME = path.join('.ras', 'extensions');
 export const EXTENSIONS_CONFIG_FILENAME = 'gemini-extension.json';
 
 export interface Extension {
@@ -105,7 +105,7 @@ function loadExtension(extensionDir: string): Extension | null {
 
 function getContextFileNames(config: ExtensionConfig): string[] {
   if (!config.contextFileName) {
-    return ['QWEN.md'];
+    return ['RAS.md'];
   } else if (!Array.isArray(config.contextFileName)) {
     return [config.contextFileName];
   }

@@ -28,9 +28,9 @@ export const Tips: React.FC<TipsProps> = ({ config }) => {
         <Text color={Colors.Foreground}>
           3. Create{' '}
           <Text bold color={Colors.AccentPurple}>
-            QWEN.md
+            RAS.md
           </Text>{' '}
-          files to customize your interactions with Qwen Code.
+                      files to customize your interactions with RAS CLI.
         </Text>
       )}
       <Text color={Colors.Foreground}>

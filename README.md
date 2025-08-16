@@ -1,31 +1,40 @@
-# Qwen Code
-
+# RAS CLI - NOC Edition
 <div align="center">
 
-![Qwen Code Screenshot](./docs/assets/qwen-screenshot.png)
+![RAS CLI Screenshot](./ras-screenshot.png)
 
-[![npm version](https://img.shields.io/npm/v/@qwen-code/qwen-code.svg)](https://www.npmjs.com/package/@qwen-code/qwen-code)
+[![npm version](https://img.shields.io/npm/v/@ras-ai/ras-cli.svg)](https://www.npmjs.com/package/@ras-ai/ras-cli)
 [![License](https://img.shields.io/github/license/QwenLM/qwen-code.svg)](./LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
-[![Downloads](https://img.shields.io/npm/dm/@qwen-code/qwen-code.svg)](https://www.npmjs.com/package/@qwen-code/qwen-code)
+[![Downloads](https://img.shields.io/npm/dm/@ras-ai/ras-cli.svg)](https://www.npmjs.com/package/@ras-ai/ras-cli)
 
-**AI-powered command-line workflow tool for developers**
+**Rent-a-Server AI CLI Tool - Specialized for Network Operations Center (NOC) Professionals**
 
-[Installation](#installation) • [Quick Start](#quick-start) • [Features](#key-features) • [Documentation](./docs/) • [Contributing](./CONTRIBUTING.md)
+[Installation](#installation) • [Quick Start](#quick-start) • [NOC Features](#noc-features) • [Documentation](./docs/) • [Contributing](./CONTRIBUTING.md)
 
 </div>
 
-Qwen Code is a powerful command-line AI workflow tool adapted from [**Gemini CLI**](https://github.com/google-gemini/gemini-cli) ([details](./README.gemini.md)), specifically optimized for [Qwen3-Coder](https://github.com/QwenLM/Qwen3-Coder) models. It enhances your development workflow with advanced code understanding, automated tasks, and intelligent assistance.
+RAS CLI is a powerful command-line AI workflow tool specifically designed for **Network Operations Center (NOC) professionals** who manage Linux servers, Cisco networking equipment (Nexus & Catalyst), virtualization platforms (VMware & Hyper-V), and storage systems. It enhances your infrastructure management workflow with advanced automation, troubleshooting assistance, and intelligent infrastructure insights.
+
+## 🎯 Built for NOC Professionals
+
+RAS CLI is optimized for:
+- **🔧 Linux Server Management** - System administration, troubleshooting, and automation
+- **🌐 Cisco Networking** - Nexus & Catalyst switch configuration and monitoring
+- **☁️ Virtualization** - VMware vSphere and Microsoft Hyper-V management
+- **💾 Storage Systems** - SAN/NAS configuration and performance optimization
+- **🚨 Incident Response** - Rapid troubleshooting and resolution workflows
+- **📊 Infrastructure Monitoring** - Performance analysis and capacity planning
 
 ## 💡 Free Options Available
 
-Get started with Qwen Code at no cost using any of these free options:
+Get started with RAS CLI at no cost using any of these free options:
 
 ### 🔥 Qwen OAuth (Recommended)
 
 - **2,000 requests per day** with no token limits
 - **60 requests per minute** rate limit
-- Simply run `qwen` and authenticate with your qwen.ai account
+- Simply run `ras` and authenticate with your qwen.ai account
 - Automatic credential management and refresh
 - Use `/auth` command to switch to Qwen OAuth if you have initialized with OpenAI compatible mode
 
@@ -37,13 +46,39 @@ Get started with Qwen Code at no cost using any of these free options:
 For detailed setup instructions, see [Authorization](#authorization).
 
 > [!WARNING]
-> **Token Usage Notice**: Qwen Code may issue multiple API calls per cycle, resulting in higher token usage (similar to Claude Code). We're actively optimizing API efficiency.
+> **Token Usage Notice**: RAS CLI may issue multiple API calls per cycle, resulting in higher token usage (similar to Claude Code). We're actively optimizing API efficiency.
 
-## Key Features
+## NOC Features
 
-- **Code Understanding & Editing** - Query and edit large codebases beyond traditional context window limits
-- **Workflow Automation** - Automate operational tasks like handling pull requests and complex rebases
-- **Enhanced Parser** - Adapted parser specifically optimized for Qwen-Coder models
+### 🔧 Linux Server Management
+- **System Administration** - User management, service configuration, and system optimization
+- **Troubleshooting** - Log analysis, performance diagnostics, and issue resolution
+- **Automation** - Script generation for repetitive tasks and maintenance
+- **Security** - Security hardening, vulnerability assessment, and compliance checks
+
+### 🌐 Cisco Networking
+- **Switch Configuration** - Nexus and Catalyst switch setup and optimization
+- **Network Troubleshooting** - Connectivity issues, routing problems, and performance analysis
+- **VLAN Management** - VLAN configuration, trunking, and inter-VLAN routing
+- **Security** - Access control lists (ACLs), port security, and threat mitigation
+
+### ☁️ Virtualization Platforms
+- **VMware vSphere** - VM management, resource allocation, and performance tuning
+- **Microsoft Hyper-V** - Virtual machine administration and cluster management
+- **Resource Optimization** - Capacity planning, performance monitoring, and cost optimization
+- **Disaster Recovery** - Backup strategies, replication, and business continuity
+
+### 💾 Storage Systems
+- **SAN/NAS Management** - Storage configuration, performance tuning, and capacity planning
+- **Data Protection** - Backup strategies, replication, and disaster recovery
+- **Performance Analysis** - I/O optimization, bottleneck identification, and capacity planning
+- **Compliance** - Data retention policies and regulatory compliance
+
+### 🚨 Incident Response
+- **Rapid Diagnostics** - Quick identification of infrastructure issues
+- **Escalation Procedures** - Automated escalation workflows and documentation
+- **Resolution Tracking** - Incident lifecycle management and post-mortem analysis
+- **Knowledge Base** - Building institutional knowledge from incident responses
 
 ## Installation
 
@@ -58,8 +93,8 @@ curl -qL https://www.npmjs.com/install.sh | sh
 ### Install from npm
 
 ```bash
-npm install -g @qwen-code/qwen-code@latest
-qwen --version
+npm install -g @ras-ai/ras-cli@latest
+ras --version
 ```
 
 ### Install from source
@@ -74,13 +109,15 @@ npm install -g .
 ## Quick Start
 
 ```bash
-# Start Qwen Code
-qwen
+# Start RAS CLI
+ras
 
-# Example commands
-> Explain this codebase structure
-> Help me refactor this function
-> Generate unit tests for this module
+# NOC-specific examples
+> Analyze this Linux server's performance metrics
+> Help me troubleshoot this Cisco switch connectivity issue
+> Generate a VMware VM migration script
+> Check storage capacity and performance on this SAN
+> Create an incident response playbook for network outages
 ```
 
 ### Session Management
@@ -89,11 +126,13 @@ Control your token usage with configurable session limits to optimize costs and 
 
 #### Configure Session Token Limit
 
-Create or edit `.qwen/settings.json` in your home directory:
+Create or edit `.ras/settings.json` in your home directory:
 
 ```json
 {
-  "sessionTokenLimit": 32000
+  "sessionTokenLimit": 32000,
+  "nocSpecialization": true,
+  "defaultContext": "infrastructure"
 }
 ```
 
@@ -102,6 +141,7 @@ Create or edit `.qwen/settings.json` in your home directory:
 - **`/compress`** - Compress conversation history to continue within token limits
 - **`/clear`** - Clear all conversation history and start fresh
 - **`/stats`** - Check current token usage and limits
+- **`/noc`** - Switch to NOC-specific context and prompts
 
 > 📝 **Note**: Session token limit applies to a single conversation, not cumulative API calls.
 
@@ -115,7 +155,7 @@ The easiest way to get started - completely free with generous quotas:
 
 ```bash
 # Just run this command and follow the browser authentication
-qwen
+ras
 ```
 
 **What happens:**
@@ -123,7 +163,7 @@ qwen
 1. **Instant Setup**: CLI opens your browser automatically
 2. **One-Click Login**: Authenticate with your qwen.ai account
 3. **Automatic Management**: Credentials cached locally for future use
-4. **No Configuration**: Zero setup required - just start coding!
+4. **NOC Optimization**: Pre-configured for infrastructure management tasks
 
 **Free Tier Benefits:**
 
@@ -131,6 +171,7 @@ qwen
 - ✅ **60 requests/minute** rate limit
 - ✅ **Automatic credential refresh**
 - ✅ **Zero cost** for individual users
+- ✅ **NOC-specialized responses**
 - ℹ️ **Note**: Model fallback may occur to maintain service quality
 
 #### 2. OpenAI-Compatible API
@@ -209,143 +250,163 @@ export OPENAI_MODEL="qwen/qwen3-coder:free"
 
 ## Usage Examples
 
-### 🔍 Explore Codebases
+### 🔧 Linux Server Management
 
 ```bash
-cd your-project/
-qwen
+# System administration
+> Analyze this server's performance and identify bottlenecks
+> Help me configure a new user with sudo access
+> Generate a script to monitor disk space and alert when low
+> Troubleshoot this service that won't start
 
-# Architecture analysis
-> Describe the main pieces of this system's architecture
-> What are the key dependencies and how do they interact?
-> Find all API endpoints and their authentication methods
+# Security and compliance
+> Audit this server for security vulnerabilities
+> Help me configure firewall rules for this application
+> Generate a compliance checklist for PCI DSS
+> Analyze these logs for security incidents
 ```
 
-### 💻 Code Development
+### 🌐 Cisco Networking
 
 ```bash
-# Refactoring
-> Refactor this function to improve readability and performance
-> Convert this class to use dependency injection
-> Split this large module into smaller, focused components
+# Switch configuration
+> Help me configure VLANs on this Nexus switch
+> Generate a script to backup all switch configurations
+> Troubleshoot this connectivity issue between switches
+> Optimize the routing configuration for better performance
 
-# Code generation
-> Create a REST API endpoint for user management
-> Generate unit tests for the authentication module
-> Add error handling to all database operations
+# Network monitoring
+> Analyze this network topology for potential issues
+> Help me configure SNMP monitoring for these switches
+> Generate alerts for interface errors and utilization
+> Create a network documentation template
 ```
 
-### 🔄 Automate Workflows
+### ☁️ Virtualization Management
 
 ```bash
-# Git automation
-> Analyze git commits from the last 7 days, grouped by feature
-> Create a changelog from recent commits
-> Find all TODO comments and create GitHub issues
+# VMware vSphere
+> Help me migrate this VM to a different datastore
+> Analyze VM performance and suggest optimizations
+> Generate a script to create VM snapshots before updates
+> Troubleshoot this VM that won't power on
 
-# File operations
-> Convert all images in this directory to PNG format
-> Rename all test files to follow the *.test.ts pattern
-> Find and remove all console.log statements
+# Hyper-V
+> Help me configure failover clustering for these VMs
+> Generate PowerShell scripts for VM management
+> Analyze storage performance for this Hyper-V cluster
+> Create backup strategies for critical VMs
 ```
 
-### 🐛 Debugging & Analysis
+### 💾 Storage Systems
+
+```bash
+# SAN/NAS management
+> Analyze storage performance and identify bottlenecks
+> Help me configure RAID arrays for optimal performance
+> Generate scripts to monitor storage capacity
+> Troubleshoot this storage connectivity issue
+
+# Data protection
+> Create backup strategies for this storage system
+> Help me configure replication between storage arrays
+> Generate disaster recovery procedures
+> Analyze backup job failures and suggest fixes
+```
+
+### 🚨 Incident Response
+
+```bash
+# Rapid diagnostics
+> Help me quickly diagnose this network outage
+> Generate an incident response checklist
+> Analyze these logs for the root cause
+> Create escalation procedures for this issue
+
+# Documentation and follow-up
+> Generate an incident report template
+> Help me create a post-mortem analysis
+> Document lessons learned from this incident
+> Update runbooks based on this incident
+```
+
+## Popular NOC Tasks
+
+### 📊 Infrastructure Monitoring
 
 ```bash
 # Performance analysis
-> Identify performance bottlenecks in this React component
-> Find all N+1 query problems in the codebase
+> Analyze system performance metrics and identify trends
+> Help me set up monitoring thresholds for critical services
+> Generate capacity planning reports
+> Create dashboards for executive reporting
 
-# Security audit
-> Check for potential SQL injection vulnerabilities
-> Find all hardcoded credentials or API keys
+# Alert management
+> Help me configure intelligent alerting rules
+> Generate escalation procedures for different alert types
+> Create runbooks for common alert scenarios
+> Optimize alert noise and reduce false positives
 ```
 
-## Popular Tasks
+### 🔧 Automation & Scripting
 
-### 📚 Understand New Codebases
+```bash
+# Infrastructure automation
+> Generate scripts for routine maintenance tasks
+> Help me automate backup verification processes
+> Create deployment scripts for configuration changes
+> Build monitoring and alerting automation
 
-```text
-> What are the core business logic components?
-> What security mechanisms are in place?
-> How does the data flow through the system?
-> What are the main design patterns used?
-> Generate a dependency graph for this module
+# Workflow optimization
+> Streamline incident response procedures
+> Automate compliance reporting
+> Create self-service tools for common tasks
+> Build knowledge base automation
 ```
 
-### 🔨 Code Refactoring & Optimization
+### 📋 Documentation & Knowledge Management
 
-```text
-> What parts of this module can be optimized?
-> Help me refactor this class to follow SOLID principles
-> Add proper error handling and logging
-> Convert callbacks to async/await pattern
-> Implement caching for expensive operations
+```bash
+# Runbook creation
+> Help me create runbooks for common procedures
+> Generate troubleshooting guides for specific issues
+> Create onboarding documentation for new team members
+> Build knowledge base articles from incident responses
+
+# Process documentation
+> Document change management procedures
+> Create escalation matrices
+> Generate compliance documentation
+> Build training materials for the team
 ```
 
-### 📝 Documentation & Testing
+## Configuration
 
-```text
-> Generate comprehensive JSDoc comments for all public APIs
-> Write unit tests with edge cases for this component
-> Create API documentation in OpenAPI format
-> Add inline comments explaining complex algorithms
-> Generate a README for this module
+RAS CLI supports various configuration options through environment variables, settings files, and command-line arguments. See the [Configuration Guide](./docs/cli/configuration.md) for detailed information.
+
+### NOC-Specific Configuration
+
+```json
+{
+  "nocSpecialization": true,
+  "defaultContext": "infrastructure",
+  "specializedPrompts": {
+    "linux": "You are a senior Linux system administrator with expertise in enterprise environments",
+    "networking": "You are a CCIE-level network engineer specializing in Cisco infrastructure",
+    "virtualization": "You are a virtualization expert with deep VMware and Hyper-V knowledge",
+    "storage": "You are a storage architect with expertise in SAN/NAS and data protection"
+  }
+}
 ```
 
-### 🚀 Development Acceleration
+## Contributing
 
-```text
-> Set up a new Express server with authentication
-> Create a React component with TypeScript and tests
-> Implement a rate limiter middleware
-> Add database migrations for new schema
-> Configure CI/CD pipeline for this project
-```
-
-## Commands & Shortcuts
-
-### Session Commands
-
-- `/help` - Display available commands
-- `/clear` - Clear conversation history
-- `/compress` - Compress history to save tokens
-- `/stats` - Show current session information
-- `/exit` or `/quit` - Exit Qwen Code
-
-### Keyboard Shortcuts
-
-- `Ctrl+C` - Cancel current operation
-- `Ctrl+D` - Exit (on empty line)
-- `Up/Down` - Navigate command history
-
-## Benchmark Results
-
-### Terminal-Bench Performance
-
-| Agent     | Model              | Accuracy |
-| --------- | ------------------ | -------- |
-| Qwen Code | Qwen3-Coder-480A35 | 37.5%    |
-| Qwen Code | Qwen3-Coder-30BA3B | 31.3%    |
-
-## Development & Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) to learn how to contribute to the project.
-
-For detailed authentication setup, see the [authentication guide](./docs/cli/authentication.md).
-
-## Troubleshooting
-
-If you encounter issues, check the [troubleshooting guide](docs/troubleshooting.md).
-
-## Acknowledgments
-
-This project is based on [Google Gemini CLI](https://github.com/google-gemini/gemini-cli). We acknowledge and appreciate the excellent work of the Gemini CLI team. Our main contribution focuses on parser-level adaptations to better support Qwen-Coder models.
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details on how to submit pull requests, report issues, and contribute to the project.
 
 ## License
 
-[LICENSE](./LICENSE)
+This project is licensed under the Apache 2.0 License - see the [LICENSE](./LICENSE) file for details.
 
-## Star History
+## Acknowledgments
 
-[![Star History Chart](https://api.star-history.com/svg?repos=QwenLM/qwen-code&type=Date)](https://www.star-history.com/#QwenLM/qwen-code&Date)
+RAS CLI is adapted from [Gemini CLI](https://github.com/google-gemini/gemini-cli) and optimized for NOC professionals managing complex infrastructure environments. We thank the Gemini CLI team for their excellent foundation.
