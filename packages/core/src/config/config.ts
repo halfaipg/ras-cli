@@ -87,6 +87,10 @@ export interface GitCoAuthorSettings {
   email?: string;
 }
 
+export interface Qwen3XmlSettings {
+  enabled?: boolean;
+}
+
 export interface GeminiCLIExtension {
   name: string;
   version: string;
@@ -173,6 +177,7 @@ export interface ConfigParameters {
   accessibility?: AccessibilitySettings;
   telemetry?: TelemetrySettings;
   gitCoAuthor?: GitCoAuthorSettings;
+  qwen3Xml?: Qwen3XmlSettings;
   usageStatisticsEnabled?: boolean;
   fileFiltering?: {
     respectGitIgnore?: boolean;
@@ -240,6 +245,7 @@ export class Config {
   private readonly accessibility: AccessibilitySettings;
   private readonly telemetrySettings: TelemetrySettings;
   private readonly gitCoAuthor: GitCoAuthorSettings;
+  private readonly qwen3Xml: Qwen3XmlSettings;
   private readonly usageStatisticsEnabled: boolean;
   private geminiClient!: GeminiClient;
   private readonly fileFiltering: {
@@ -325,6 +331,9 @@ export class Config {
       enabled: params.gitCoAuthor?.enabled ?? true,
       name: params.gitCoAuthor?.name ?? 'Qwen-Coder',
       email: params.gitCoAuthor?.email ?? 'qwen-coder@alibabacloud.com',
+    };
+    this.qwen3Xml = {
+      enabled: params.qwen3Xml?.enabled ?? false,
     };
     this.usageStatisticsEnabled = params.usageStatisticsEnabled ?? true;
 
@@ -608,6 +617,10 @@ export class Config {
 
   getGitCoAuthor(): GitCoAuthorSettings {
     return this.gitCoAuthor;
+  }
+
+  getQwen3XmlSettings(): Qwen3XmlSettings {
+    return this.qwen3Xml;
   }
 
   getGeminiClient(): GeminiClient {

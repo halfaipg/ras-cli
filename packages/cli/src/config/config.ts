@@ -70,6 +70,7 @@ export interface CliArgs {
   includeDirectories: string[] | undefined;
   loadMemoryFromIncludeDirectories: boolean | undefined;
   tavilyApiKey: string | undefined;
+  qwen3Xml: boolean | undefined;
 }
 
 export async function parseArguments(): Promise<CliArgs> {
@@ -238,6 +239,11 @@ export async function parseArguments(): Promise<CliArgs> {
       type: 'boolean',
       description:
         'If true, when refreshing memory, RAS.md files should be loaded from all directories that are added. If false, RAS.md files should only be loaded from the primary working directory.',
+      default: false,
+    })
+    .option('qwen3-xml', {
+      type: 'boolean',
+      description: 'Enable Qwen3 XML tool call parsing',
       default: false,
     })
     .version(await getCliVersion()) // This will enable the --version flag based on package.json
@@ -509,6 +515,9 @@ export async function loadCliConfig(
       (typeof argv.openaiLogging === 'undefined'
         ? settings.enableOpenAILogging
         : argv.openaiLogging) ?? false,
+    qwen3Xml: {
+      enabled: argv.qwen3Xml || false,
+    },
     sampling_params: settings.sampling_params,
     systemPromptMappings: settings.systemPromptMappings ?? [
       {

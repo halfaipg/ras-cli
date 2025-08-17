@@ -27,6 +27,7 @@ import { ApiErrorEvent, ApiResponseEvent } from '../telemetry/types.js';
 import { Config } from '../config/config.js';
 import { openaiLogger } from '../utils/openaiLogger.js';
 import { safeJsonParse } from '../utils/safeJsonParse.js';
+import { Qwen3XmlParser } from './qwen3XmlParser.js';
 
 // OpenAI API type definitions for logging
 interface OpenAIToolCall {
@@ -82,6 +83,7 @@ export class OpenAIContentGenerator implements ContentGenerator {
   protected client: OpenAI;
   private model: string;
   private config: Config;
+  private qwen3XmlParser: Qwen3XmlParser;
   private streamingToolCalls: Map<
     number,
     {
@@ -137,6 +139,11 @@ export class OpenAIContentGenerator implements ContentGenerator {
       maxRetries: timeoutConfig.maxRetries,
       defaultHeaders,
     });
+
+    // Initialize Qwen3 XML parser
+    this.qwen3XmlParser = new Qwen3XmlParser(
+      this.config.getQwen3XmlSettings()?.enabled ?? false
+    );
   }
 
   /**
@@ -1163,12 +1170,29 @@ export class OpenAIContentGenerator implements ContentGenerator {
     const parts: Part[] = [];
 
     // Handle text content
-    if (choice.message.content) {
-      if (typeof choice.message.content === 'string') {
-        parts.push({ text: choice.message.content.trimEnd() });
-      } else {
-        parts.push({ text: choice.message.content });
+    let content = choice.message.content;
+    if (typeof content === 'string') {
+      // Check for Qwen3 XML tool calls in the content
+      if (this.qwen3XmlParser.hasQwen3XmlToolCalls(content)) {
+        const parsedResponse = this.qwen3XmlParser.parseResponse(content);
+        content = parsedResponse.text;
+        
+        // Add Qwen3 XML tool calls to the response
+        if (parsedResponse.toolCalls.length > 0) {
+          // Convert Qwen3 XML tool calls to OpenAI format
+          const openAIToolCalls = this.qwen3XmlParser.convertToOpenAIFormat(parsedResponse.toolCalls);
+          
+          // Add them to the choice message
+          if (!choice.message.tool_calls) {
+            choice.message.tool_calls = [];
+          }
+          choice.message.tool_calls.push(...openAIToolCalls);
+        }
       }
+      
+      parts.push({ text: content.trimEnd() });
+    } else if (content) {
+      parts.push({ text: content });
     }
 
     // Handle tool calls
