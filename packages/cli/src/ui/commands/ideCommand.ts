@@ -11,7 +11,7 @@ import {
   IdeClient,
   getIdeDisplayName,
   getIdeInstaller,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 import {
   CommandContext,
   SlashCommand,

@@ -16,7 +16,7 @@ import {
   logSlashCommand,
   SlashCommandEvent,
   ToolConfirmationOutcome,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 import { useSessionStats } from '../contexts/SessionContext.js';
 import {
   Message,

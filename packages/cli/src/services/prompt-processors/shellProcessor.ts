@@ -7,7 +7,7 @@
 import {
   checkCommandPermissions,
   ShellExecutionService,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 
 import { CommandContext } from '../../ui/commands/types.js';
 import { IPromptProcessor } from './types.js';

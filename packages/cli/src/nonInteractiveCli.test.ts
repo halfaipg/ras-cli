@@ -12,15 +12,15 @@ import {
   shutdownTelemetry,
   GeminiEventType,
   ServerGeminiStreamEvent,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 import { Part } from '@google/genai';
 import { runNonInteractive } from './nonInteractiveCli.js';
 import { vi } from 'vitest';
 
 // Mock core modules
-vi.mock('@qwen-code/qwen-code-core', async (importOriginal) => {
+vi.mock('../core', async (importOriginal) => {
   const original =
-    await importOriginal<typeof import('@qwen-code/qwen-code-core')>();
+    await importOriginal<typeof import('../core')>();
   return {
     ...original,
     executeToolCall: vi.fn(),

@@ -9,7 +9,7 @@ import {
   Config,
   CodeAssistServer,
   UserTierId,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 
 export interface PrivacyState {
   isLoading: boolean;
