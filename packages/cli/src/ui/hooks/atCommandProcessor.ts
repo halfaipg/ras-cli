@@ -12,7 +12,7 @@ import {
   getErrorMessage,
   isNodeError,
   unescapePath,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 import {
   HistoryItem,
   IndividualToolCallDisplay,

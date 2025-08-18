@@ -11,10 +11,15 @@
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2023"],
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "target": "es2022",
     "types": ["node", "vitest/globals"],
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@ras-ai/ras-cli-core": ["packages/core/src"],
+      "@ras-ai/ras-cli-core/*": ["packages/core/src/*"]
+    }
   }
 }

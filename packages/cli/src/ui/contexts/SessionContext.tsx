@@ -17,7 +17,7 @@ import {
   uiTelemetryService,
   SessionMetrics,
   ModelMetrics,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 
 // --- Interface Definitions ---
 

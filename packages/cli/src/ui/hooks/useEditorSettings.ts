@@ -11,7 +11,7 @@ import {
   allowEditorTypeInSandbox,
   checkHasEditorType,
   EditorType,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 
 interface UseEditorSettingsReturn {
   isEditorDialogOpen: boolean;
