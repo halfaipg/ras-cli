@@ -26,6 +26,11 @@ export function tokenLimit(model: Model): TokenCount {
       return 1_048_576;
     case 'gemini-2.0-flash-preview-image-generation':
       return 32_000;
+    // Qwen3 models with 65K context support
+    case 'Qwen/Qwen3-Coder-30B-A3B-Instruct':
+    case 'Qwen/Qwen3-Coder-Plus':
+    case 'Qwen/Qwen3-Coder':
+      return 65_536;
     default:
       return DEFAULT_TOKEN_LIMIT;
   }

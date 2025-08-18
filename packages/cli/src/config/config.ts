@@ -502,7 +502,7 @@ export async function loadCliConfig(
     extensionContextFilePaths,
     maxSessionTurns: settings.maxSessionTurns ?? -1,
     sessionTokenLimit: settings.sessionTokenLimit ?? -1,
-    maxFolderItems: settings.maxFolderItems ?? 20,
+    maxFolderItems: settings.maxFolderItems ?? 50,
     experimentalAcp: argv.experimentalAcp || false,
     listExtensions: argv.listExtensions || false,
     extensions: allExtensions,
@@ -515,14 +515,19 @@ export async function loadCliConfig(
       (typeof argv.openaiLogging === 'undefined'
         ? settings.enableOpenAILogging
         : argv.openaiLogging) ?? false,
-    sampling_params: settings.sampling_params,
+    sampling_params: settings.sampling_params ?? (argv.model?.includes('Qwen') || settings.model?.includes('Qwen') ? {
+      temperature: 0.7,
+      top_p: 0.8,
+      top_k: 20,
+      repetition_penalty: 1.05
+    } : undefined),
     systemPromptMappings: settings.systemPromptMappings ?? [
       {
         baseUrls: [
           'https://dashscope.aliyuncs.com/compatible-mode/v1/',
           'https://dashscope-intl.aliyuncs.com/compatible-mode/v1/',
         ],
-        modelNames: ['qwen3-coder-plus'],
+        modelNames: ['qwen3-coder-plus', 'Qwen/Qwen3-Coder-30B-A3B-Instruct'],
         template:
           'SYSTEM_TEMPLATE:{"name":"qwen3_coder","params":{"is_git_repository":{RUNTIME_VARS_IS_GIT_REPO},"sandbox":"{RUNTIME_VARS_SANDBOX}"}}',
       },
