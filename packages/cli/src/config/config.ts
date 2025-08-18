@@ -22,7 +22,7 @@ import {
   FileDiscoveryService,
   TelemetryTarget,
   FileFilteringOptions,
-} from '@qwen-code/qwen-code-core';
+} from '@ras-ai/ras-cli-core';
 import { Settings } from './settings.js';
 
 import { Extension, annotateActiveExtensions } from './extension.js';
