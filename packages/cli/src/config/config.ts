@@ -515,9 +515,6 @@ export async function loadCliConfig(
       (typeof argv.openaiLogging === 'undefined'
         ? settings.enableOpenAILogging
         : argv.openaiLogging) ?? false,
-    qwen3Xml: {
-      enabled: argv.qwen3Xml || false,
-    },
     sampling_params: settings.sampling_params,
     systemPromptMappings: settings.systemPromptMappings ?? [
       {
@@ -534,6 +531,9 @@ export async function loadCliConfig(
     cliVersion,
     tavilyApiKey:
       argv.tavilyApiKey || settings.tavilyApiKey || process.env.TAVILY_API_KEY,
+    qwen3Xml: {
+      enabled: argv.qwen3Xml || false,
+    },
   });
 }
 

@@ -335,6 +335,7 @@ export class Config {
     this.qwen3Xml = {
       enabled: params.qwen3Xml?.enabled ?? false,
     };
+    console.log('DEBUG: Config constructor - qwen3Xml enabled:', this.qwen3Xml.enabled);
     this.usageStatisticsEnabled = params.usageStatisticsEnabled ?? true;
 
     this.fileFiltering = {
@@ -794,6 +795,9 @@ export class Config {
       const coreTools = this.getCoreTools();
       const excludeTools = this.getExcludeTools();
 
+      console.log(`DEBUG: Registering tool - className: ${className}, toolName: ${toolName}`);
+      console.log(`DEBUG: excludeTools:`, excludeTools);
+
       let isEnabled = false;
       if (coreTools === undefined) {
         isEnabled = true;
@@ -807,15 +811,23 @@ export class Config {
         );
       }
 
+      console.log(`DEBUG: isEnabled before exclude check: ${isEnabled}`);
+
       if (
         excludeTools?.includes(className) ||
         excludeTools?.includes(toolName)
       ) {
         isEnabled = false;
+        console.log(`DEBUG: Tool ${toolName} excluded by excludeTools`);
       }
+
+      console.log(`DEBUG: Final isEnabled for ${toolName}: ${isEnabled}`);
 
       if (isEnabled) {
         registry.registerTool(new ToolClass(...args));
+        console.log(`DEBUG: Successfully registered tool: ${toolName}`);
+      } else {
+        console.log(`DEBUG: Tool ${toolName} NOT registered`);
       }
     };
 

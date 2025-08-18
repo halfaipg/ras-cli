@@ -43,6 +43,7 @@ export async function checkNextSpeaker(
   chat: GeminiChat,
   geminiClient: GeminiClient,
   abortSignal: AbortSignal,
+  model?: string,
 ): Promise<NextSpeakerResponse | null> {
   // We need to capture the curated history because there are many moments when the model will return invalid turns
   // that when passed back up to the endpoint will break subsequent calls. An example of this is when the model decides
@@ -112,7 +113,7 @@ export async function checkNextSpeaker(
       contents,
       RESPONSE_SCHEMA,
       abortSignal,
-      DEFAULT_GEMINI_FLASH_LITE_MODEL,
+      model || DEFAULT_GEMINI_FLASH_LITE_MODEL,
     )) as unknown as NextSpeakerResponse;
 
     if (

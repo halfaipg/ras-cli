@@ -486,31 +486,33 @@ export class GeminiClient {
         return turn;
       }
 
-      const nextSpeakerCheck = await checkNextSpeaker(
-        this.getChat(),
-        this,
-        signal,
-      );
-      logNextSpeakerCheck(
-        this.config,
-        new NextSpeakerCheckEvent(
-          prompt_id,
-          turn.finishReason?.toString() || '',
-          nextSpeakerCheck?.next_speaker || '',
-        ),
-      );
-      if (nextSpeakerCheck?.next_speaker === 'model') {
-        const nextRequest = [{ text: 'Please continue.' }];
-        // This recursive call's events will be yielded out, but the final
-        // turn object will be from the top-level call.
-        yield* this.sendMessageStream(
-          nextRequest,
-          signal,
-          prompt_id,
-          boundedTurns - 1,
-          initialModel,
-        );
-      }
+      // Temporarily disable nextSpeakerCheck to avoid API errors
+      // const nextSpeakerCheck = await checkNextSpeaker(
+      //   this.getChat(),
+      //   this,
+      //   signal,
+      //   this.config.getModel(),
+      // );
+      // logNextSpeakerCheck(
+      //   this.config,
+      //   new NextSpeakerCheckEvent(
+      //     prompt_id,
+      //     turn.finishReason?.toString() || '',
+      //     nextSpeakerCheck?.next_speaker || '',
+      //   ),
+      // );
+      // if (nextSpeakerCheck?.next_speaker === 'model') {
+      //   const nextRequest = [{ text: 'Please continue.' }];
+      //   // This recursive call's events will be yielded out, but the final
+      //   // turn object will be from the top-level call.
+      //   yield* this.sendMessageStream(
+      //     nextRequest,
+      //     signal,
+      //     prompt_id,
+      //     boundedTurns - 1,
+      //     initialModel,
+      //   );
+      // }
     }
     return turn;
   }

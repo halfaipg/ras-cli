@@ -149,6 +149,9 @@ export async function main() {
   }
 
   const argv = await parseArguments();
+  console.log('DEBUG: CLI arguments:', JSON.stringify(argv, null, 2));
+  console.log('DEBUG: qwen3Xml flag:', argv.qwen3Xml);
+  
   const extensions = loadExtensions(workspaceRoot);
   const config = await loadCliConfig(
     settings.merged,

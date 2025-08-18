@@ -141,9 +141,9 @@ export class OpenAIContentGenerator implements ContentGenerator {
     });
 
     // Initialize Qwen3 XML parser
-    this.qwen3XmlParser = new Qwen3XmlParser(
-      this.config.getQwen3XmlSettings()?.enabled ?? false
-    );
+    const qwen3XmlEnabled = this.config.getQwen3XmlSettings()?.enabled ?? false;
+    console.log('DEBUG: Qwen3 XML enabled:', qwen3XmlEnabled);
+    this.qwen3XmlParser = new Qwen3XmlParser(qwen3XmlEnabled);
   }
 
   /**
@@ -265,6 +265,8 @@ export class OpenAIContentGenerator implements ContentGenerator {
         createParams,
       )) as OpenAI.Chat.ChatCompletion;
 
+      console.log('DEBUG: Raw API response:', JSON.stringify(completion, null, 2));
+      
       const response = this.convertToGeminiFormat(completion);
       const durationMs = Date.now() - startTime;
 
@@ -527,8 +529,42 @@ export class OpenAIContentGenerator implements ContentGenerator {
   ): AsyncGenerator<GenerateContentResponse> {
     // Reset the accumulator for each new stream
     this.streamingToolCalls.clear();
+    
+    // Accumulate text content for Qwen3 XML parsing
+    let accumulatedText = '';
 
     for await (const chunk of stream) {
+      // Check if this chunk contains text content
+      const choice = chunk.choices?.[0];
+      if (choice?.delta?.content && typeof choice.delta.content === 'string') {
+        accumulatedText += choice.delta.content;
+        
+        // Check if we have complete Qwen3 XML tool calls
+        if (this.qwen3XmlParser.hasQwen3XmlToolCalls(accumulatedText)) {
+          console.log('DEBUG: Found Qwen3 XML tool calls in streaming:', accumulatedText);
+          const parsedResponse = this.qwen3XmlParser.parseResponse(accumulatedText);
+          console.log('DEBUG: Parsed streaming response:', JSON.stringify(parsedResponse, null, 2));
+          
+          // Replace the accumulated text with the parsed text
+          accumulatedText = parsedResponse.text;
+          
+          // Convert Qwen3 XML tool calls to OpenAI format and add to streaming tool calls
+          if (parsedResponse.toolCalls.length > 0) {
+            const openAIToolCalls = this.qwen3XmlParser.convertToOpenAIFormat(parsedResponse.toolCalls);
+            console.log('DEBUG: Converted streaming to OpenAI format:', JSON.stringify(openAIToolCalls, null, 2));
+            
+            // Add them to the streaming tool calls
+            openAIToolCalls.forEach((toolCall, index) => {
+              this.streamingToolCalls.set(index, {
+                id: toolCall.id,
+                name: toolCall.function.name,
+                arguments: toolCall.function.arguments
+              });
+            });
+          }
+        }
+      }
+      
       yield this.convertStreamChunkToGeminiFormat(chunk);
     }
   }
@@ -1174,13 +1210,16 @@ export class OpenAIContentGenerator implements ContentGenerator {
     if (typeof content === 'string') {
       // Check for Qwen3 XML tool calls in the content
       if (this.qwen3XmlParser.hasQwen3XmlToolCalls(content)) {
+        console.log('DEBUG: Found Qwen3 XML tool calls in content:', content);
         const parsedResponse = this.qwen3XmlParser.parseResponse(content);
+        console.log('DEBUG: Parsed response:', JSON.stringify(parsedResponse, null, 2));
         content = parsedResponse.text;
         
         // Add Qwen3 XML tool calls to the response
         if (parsedResponse.toolCalls.length > 0) {
           // Convert Qwen3 XML tool calls to OpenAI format
           const openAIToolCalls = this.qwen3XmlParser.convertToOpenAIFormat(parsedResponse.toolCalls);
+          console.log('DEBUG: Converted to OpenAI format:', JSON.stringify(openAIToolCalls, null, 2));
           
           // Add them to the choice message
           if (!choice.message.tool_calls) {
