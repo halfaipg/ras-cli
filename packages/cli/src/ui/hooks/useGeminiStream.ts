@@ -339,6 +339,28 @@ export const useGeminiStream = (
         return '';
       }
       let newGeminiMessageBuffer = currentGeminiMessageBuffer + eventValue;
+      
+      // Apply Qwen3 XML filtering if enabled
+      const qwen3XmlEnabled = config.getQwen3XmlSettings()?.enabled ?? false;
+      if (qwen3XmlEnabled && newGeminiMessageBuffer.includes('<tool_call>')) {
+        // First, try to extract descriptions from complete XML blocks
+        const xmlMatch = newGeminiMessageBuffer.match(/<tool_call>.*?<parameter=description>(.*?)<\/parameter>.*?<\/tool_call>/s);
+        if (xmlMatch) {
+          // Extract the description and replace the XML with it
+          const description = xmlMatch[1].trim();
+          newGeminiMessageBuffer = newGeminiMessageBuffer.replace(/<tool_call>.*?<\/tool_call>/gs, description);
+        } else {
+          // If no complete XML with description found, remove all XML blocks
+          newGeminiMessageBuffer = newGeminiMessageBuffer.replace(/<tool_call>.*?<\/tool_call>/gs, '');
+          
+          // If we still have partial XML at the end, remove it
+          const lastXmlStartIndex = newGeminiMessageBuffer.lastIndexOf('<tool_call>');
+          if (lastXmlStartIndex !== -1) {
+            newGeminiMessageBuffer = newGeminiMessageBuffer.substring(0, lastXmlStartIndex);
+          }
+        }
+      }
+      
       if (
         pendingHistoryItemRef.current?.type !== 'gemini' &&
         pendingHistoryItemRef.current?.type !== 'gemini_content'
@@ -383,7 +405,7 @@ export const useGeminiStream = (
       }
       return newGeminiMessageBuffer;
     },
-    [addItem, pendingHistoryItemRef, setPendingHistoryItem],
+    [addItem, pendingHistoryItemRef, setPendingHistoryItem, config],
   );
 
   const handleUserCancelledEvent = useCallback(
