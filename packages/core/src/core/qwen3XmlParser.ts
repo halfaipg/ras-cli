@@ -117,8 +117,23 @@ export class Qwen3XmlParser {
       // Parse tool calls
       const toolCalls = this.parseQwen3XmlToolCalls(content);
 
+      // Extract description from tool calls for display
+      let description = '';
+      if (toolCalls.length > 0) {
+        try {
+          const firstToolCall = toolCalls[0];
+          const args = JSON.parse(firstToolCall.function.arguments);
+          description = args.description || '';
+        } catch (error) {
+          // Silently ignore description parsing errors
+        }
+      }
+
+      // If the content is ONLY tool calls (no other text), return the description
+      const hasOtherText = textContent.length > 0;
+      
       return {
-        text: textContent,
+        text: hasOtherText ? textContent : description,
         toolCalls
       };
     }
