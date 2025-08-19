@@ -243,8 +243,8 @@ export async function parseArguments(): Promise<CliArgs> {
     })
     .option('qwen3-xml', {
       type: 'boolean',
-      description: 'Enable Qwen3 XML tool call parsing',
-      default: false,
+      description: 'Enable Qwen3 XML tool call parsing (default: true, use --no-qwen3-xml to disable)',
+      default: true,
     })
     .version(await getCliVersion()) // This will enable the --version flag based on package.json
     .alias('v', 'version')
